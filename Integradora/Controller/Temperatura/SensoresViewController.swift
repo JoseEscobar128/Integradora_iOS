@@ -107,11 +107,21 @@ class SensoresViewController: UIViewController {
             unidades.font = .systemFont(ofSize: 20)
             unidades.textAlignment = .right
             vista.addSubview(unidades)
+            
+            let boton = UIButton(frame: CGRect(x: 0, y: 0, width: vista.frame.width, height: vista.frame.height))
+            boton.tag = i
+            boton.addTarget(self, action: #selector(mostrarDetalle(sender:)), for: .touchDown)
+            vista.addSubview(boton)
 
             srcSensores.addSubview(vista)
             y += 140
         }
         srcSensores.contentSize = CGSize(width: 0, height: y)
+    }
+    
+    @objc func mostrarDetalle(sender: UIButton)
+    {
+        self.performSegue(withIdentifier: "sgTemperaturaAll", sender: sender)
     }
 
 

@@ -43,6 +43,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53370AC32B2A55BF0078337D /* Temperatura */ = {
+			isa = PBXGroup;
+			children = (
+				53B59E4B2B28D3FC001806F0 /* SensorTemperatura.swift */,
+				53370ABB2B2A14210078337D /* SensorTemperaturaAll.swift */,
+			);
+			path = Temperatura;
+			sourceTree = "<group>";
+		};
+		53370AC42B2A55DA0078337D /* Temperatura */ = {
+			isa = PBXGroup;
+			children = (
+				53B59E382B28BAB3001806F0 /* SensoresViewController.swift */,
+				53370AB92B2A133D0078337D /* TemperaturaAllViewController.swift */,
+			);
+			path = Temperatura;
+			sourceTree = "<group>";
+		};
 		53B59E282B28BAB3001806F0 = {
 			isa = PBXGroup;
 			children = (
@@ -85,8 +103,7 @@
 		53B59E4A2B28D2F3001806F0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				53B59E382B28BAB3001806F0 /* SensoresViewController.swift */,
-				53370AB92B2A133D0078337D /* TemperaturaAllViewController.swift */,
+				53370AC42B2A55DA0078337D /* Temperatura */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -94,8 +111,7 @@
 		53B59E4D2B28D41C001806F0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				53B59E4B2B28D3FC001806F0 /* SensorTemperatura.swift */,
-				53370ABB2B2A14210078337D /* SensorTemperaturaAll.swift */,
+				53370AC32B2A55BF0078337D /* Temperatura */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -328,6 +344,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4CKDG545LF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Integradora/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -359,6 +376,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4CKDG545LF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Integradora/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

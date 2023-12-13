@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JIL-ga-d02">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -81,6 +81,7 @@
                     </view>
                     <connections>
                         <outlet property="srcSensores" destination="pOA-Hk-IbM" id="1c8-EI-uMR"/>
+                        <segue destination="JIL-ga-d02" kind="presentation" identifier="sgTemperaturaAll" id="EPK-J8-2cM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -92,14 +93,14 @@
             <objects>
                 <viewController storyboardIdentifier="TemperaturaAllViewController" title="TemperaturaAllViewController" id="JIL-ga-d02" customClass="TemperaturaAllViewController" customModule="Integradora" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dMf-dl-iw5">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jly-0o-rE2">
-                                <rect key="frame" x="0.0" y="58.999999999999993" width="393" height="85.333333333333314"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="84.333333333333329"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZrC-Qc-moR">
-                                        <rect key="frame" x="0.0" y="2.6666666666666643" width="393" height="80.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="2.6666666666666643" width="393" height="79.333333333333343"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.84313725490000002" green="0.89019607840000003" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -111,23 +112,23 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ee-Ej-46f">
-                                <rect key="frame" x="0.0" y="154.33333333333334" width="393" height="1"/>
+                                <rect key="frame" x="0.0" y="94.333333333333329" width="393" height="1"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="K0H-VC-f0q"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperatura" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hwd-T6-njf">
-                                <rect key="frame" x="96" y="165.33333333333334" width="201" height="41"/>
+                                <rect key="frame" x="96" y="105.33333333333333" width="201" height="40.999999999999986"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Sn-7D-K9x">
-                                <rect key="frame" x="20" y="226.33333333333331" width="353" height="571.66666666666674"/>
+                                <rect key="frame" x="20" y="166.33333333333331" width="353" height="655.66666666666674"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVZ-Q8-kAP">
-                                        <rect key="frame" x="0.0" y="0.0" width="353" height="571.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="655.66666666666663"/>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
