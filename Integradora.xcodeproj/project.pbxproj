@@ -15,7 +15,7 @@
 		53B59E3C2B28BAB3001806F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B59E3A2B28BAB3001806F0 /* Main.storyboard */; };
 		53B59E3E2B28BAB5001806F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53B59E3D2B28BAB5001806F0 /* Assets.xcassets */; };
 		53B59E412B28BAB5001806F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B59E3F2B28BAB5001806F0 /* LaunchScreen.storyboard */; };
-		53B59E4C2B28D3FC001806F0 /* SensorTemperatura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B59E4B2B28D3FC001806F0 /* SensorTemperatura.swift */; };
+		53B59E4C2B28D3FC001806F0 /* Sensores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B59E4B2B28D3FC001806F0 /* Sensores.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		53B59E3D2B28BAB5001806F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53B59E402B28BAB5001806F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53B59E422B28BAB5001806F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		53B59E4B2B28D3FC001806F0 /* SensorTemperatura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorTemperatura.swift; sourceTree = "<group>"; };
+		53B59E4B2B28D3FC001806F0 /* Sensores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensores.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 		53370AC32B2A55BF0078337D /* Temperatura */ = {
 			isa = PBXGroup;
 			children = (
-				53B59E4B2B28D3FC001806F0 /* SensorTemperatura.swift */,
+				53B59E4B2B28D3FC001806F0 /* Sensores.swift */,
 				53370ABB2B2A14210078337D /* SensorTemperaturaAll.swift */,
 			);
 			path = Temperatura;
@@ -188,7 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53B59E392B28BAB3001806F0 /* SensoresViewController.swift in Sources */,
-				53B59E4C2B28D3FC001806F0 /* SensorTemperatura.swift in Sources */,
+				53B59E4C2B28D3FC001806F0 /* Sensores.swift in Sources */,
 				53370ABC2B2A14210078337D /* SensorTemperaturaAll.swift in Sources */,
 				53370ABA2B2A133D0078337D /* TemperaturaAllViewController.swift in Sources */,
 				53B59E352B28BAB3001806F0 /* AppDelegate.swift in Sources */,
