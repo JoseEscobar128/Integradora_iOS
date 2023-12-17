@@ -17,6 +17,7 @@
 		53B59E3E2B28BAB5001806F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53B59E3D2B28BAB5001806F0 /* Assets.xcassets */; };
 		53B59E412B28BAB5001806F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B59E3F2B28BAB5001806F0 /* LaunchScreen.storyboard */; };
 		53B59E4C2B28D3FC001806F0 /* Sensores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B59E4B2B28D3FC001806F0 /* Sensores.swift */; };
+		53BC09282B2FB2EA0016B422 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC09272B2FB2EA0016B422 /* MenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		53B59E402B28BAB5001806F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53B59E422B28BAB5001806F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53B59E4B2B28D3FC001806F0 /* Sensores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensores.swift; sourceTree = "<group>"; };
+		53BC09272B2FB2EA0016B422 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				532298982B2EE5A300678E92 /* Sensores */,
 				5322989D2B2EE5F600678E92 /* Login */,
+				53BC09292B2FB2EE0016B422 /* Menu */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -117,6 +120,14 @@
 				53B59E4B2B28D3FC001806F0 /* Sensores.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		53BC09292B2FB2EE0016B422 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				53BC09272B2FB2EA0016B422 /* MenuViewController.swift */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +208,7 @@
 				53370ABA2B2A133D0078337D /* SensoresAllViewController.swift in Sources */,
 				53B59E352B28BAB3001806F0 /* AppDelegate.swift in Sources */,
 				53B59E372B28BAB3001806F0 /* SceneDelegate.swift in Sources */,
+				53BC09282B2FB2EA0016B422 /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

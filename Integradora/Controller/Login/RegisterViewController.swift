@@ -17,6 +17,13 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func btnAtras(_ sender: Any) {
+        // regresar a la vista anterior
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
 
     @IBAction func btnRegistro(_ sender: Any) {
         guard let url = URL(string: "http://3.129.244.114/api/register") else {
