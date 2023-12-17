@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		53370ABA2B2A133D0078337D /* TemperaturaAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53370AB92B2A133D0078337D /* TemperaturaAllViewController.swift */; };
+		53370ABA2B2A133D0078337D /* SensoresAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53370AB92B2A133D0078337D /* SensoresAllViewController.swift */; };
 		53370ABC2B2A14210078337D /* SensorTemperaturaAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53370ABB2B2A14210078337D /* SensorTemperaturaAll.swift */; };
 		53B59E352B28BAB3001806F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B59E342B28BAB3001806F0 /* AppDelegate.swift */; };
 		53B59E372B28BAB3001806F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B59E362B28BAB3001806F0 /* SceneDelegate.swift */; };
@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		53370AB92B2A133D0078337D /* TemperaturaAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperaturaAllViewController.swift; sourceTree = "<group>"; };
+		53370AB92B2A133D0078337D /* SensoresAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensoresAllViewController.swift; sourceTree = "<group>"; };
 		53370ABB2B2A14210078337D /* SensorTemperaturaAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorTemperaturaAll.swift; sourceTree = "<group>"; };
 		53B59E312B28BAB3001806F0 /* Integradora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Integradora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53B59E342B28BAB3001806F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				53B59E382B28BAB3001806F0 /* SensoresViewController.swift */,
-				53370AB92B2A133D0078337D /* TemperaturaAllViewController.swift */,
+				53370AB92B2A133D0078337D /* SensoresAllViewController.swift */,
 			);
 			path = Temperatura;
 			sourceTree = "<group>";
@@ -190,7 +190,7 @@
 				53B59E392B28BAB3001806F0 /* SensoresViewController.swift in Sources */,
 				53B59E4C2B28D3FC001806F0 /* Sensores.swift in Sources */,
 				53370ABC2B2A14210078337D /* SensorTemperaturaAll.swift in Sources */,
-				53370ABA2B2A133D0078337D /* TemperaturaAllViewController.swift in Sources */,
+				53370ABA2B2A133D0078337D /* SensoresAllViewController.swift in Sources */,
 				53B59E352B28BAB3001806F0 /* AppDelegate.swift in Sources */,
 				53B59E372B28BAB3001806F0 /* SceneDelegate.swift in Sources */,
 			);
@@ -270,7 +270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -327,7 +327,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

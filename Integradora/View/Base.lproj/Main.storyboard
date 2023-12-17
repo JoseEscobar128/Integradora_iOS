@@ -81,17 +81,17 @@
                     </view>
                     <connections>
                         <outlet property="srcSensores" destination="pOA-Hk-IbM" id="1c8-EI-uMR"/>
-                        <segue destination="JIL-ga-d02" kind="presentation" identifier="sgTemperaturaAll" id="EPK-J8-2cM"/>
+                        <segue destination="JIL-ga-d02" kind="presentation" identifier="sgSensoresAll" id="EPK-J8-2cM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-63.358778625954194" y="3.5211267605633805"/>
         </scene>
-        <!--TemperaturaAllViewController-->
+        <!--SensoresAllViewController-->
         <scene sceneID="tXA-PJ-Ydg">
             <objects>
-                <viewController storyboardIdentifier="TemperaturaAllViewController" title="TemperaturaAllViewController" id="JIL-ga-d02" customClass="TemperaturaAllViewController" customModule="Integradora" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SensoresAllViewController" title="SensoresAllViewController" id="JIL-ga-d02" customClass="SensoresAllViewController" customModule="Integradora" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dMf-dl-iw5">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -159,7 +159,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="srcTemperaturaAll" destination="JVZ-Q8-kAP" id="Kph-mR-3U1"/>
+                        <outlet property="srcSensores" destination="JVZ-Q8-kAP" id="J1o-bY-7wr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Y0-RC-Kdg" sceneMemberID="firstResponder"/>

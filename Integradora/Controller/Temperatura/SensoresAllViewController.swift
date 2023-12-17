@@ -1,26 +1,18 @@
-//
-//  ViewController.swift
-//  Integradora
-//
-//  Created by Jose Escobar on 12/12/23.
-//
-
 import UIKit
 
-class SensoresViewController: UIViewController {
+class SensoresAllViewController: UIViewController {
 
     @IBOutlet weak var srcSensores: UIScrollView!
-    
-    var sensorTemperatura:[Sensor] = []
-    
+     
+    var sensorTemperatura: [Sensor] = []
+    var selectedSensor: Sensor?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         consultarServicio()
         // Configura un temporizador que llamará a la función consultarServicio cada 30 segundos
-                Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(consultarServicio), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(consultarServicio), userInfo: nil, repeats: true)
     }
 
     @objc func consultarServicio() {
@@ -59,22 +51,30 @@ class SensoresViewController: UIViewController {
                 let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
 
                 if let dataDict = json["data"] as? [String: Any], let dataArray = dataDict["data"] as? [[String: Any]], let primerSensorData = dataArray.first, let datos = primerSensorData["data"] as? [[String: Any]] {
-                    
-                    var ultimoSensorPorTipo: [String: Sensor] = [:]
 
-                    for data in datos {
-                        if let sensor = Sensor(data: data), let fechaSensor = sensor.fecha {
-                            if let ultimoSensor = ultimoSensorPorTipo[sensor.tipo] {
-                                if let fechaUltimoSensor = ultimoSensor.fecha, fechaSensor > fechaUltimoSensor {
-                                    ultimoSensorPorTipo[sensor.tipo] = sensor
-                                }
-                            } else {
-                                ultimoSensorPorTipo[sensor.tipo] = sensor
-                            }
+                    // Filtra los datos solo para el sensor seleccionado
+                       let datosSensorSeleccionado = datos.filter { data in
+                           guard let tipo = data["tipo"] as? String else {
+                               return false
+                           }
+                           return tipo == self.selectedSensor?.tipo
+                       }
+
+                    // Ordena los datos por fecha descendente
+                    let datosSensorSTOrdenados = datosSensorSeleccionado.sorted { data1, data2 in
+                        guard let fecha1 = data1["fecha"] as? String, let fecha2 = data2["fecha"] as? String else {
+                            return false
                         }
+                        return fecha1 > fecha2
                     }
 
-                    self.sensorTemperatura = Array(ultimoSensorPorTipo.values)
+                    // Obtiene los últimos 20 datos del sensor "ST"
+                    let ultimosDatosST = Array(datosSensorSTOrdenados.prefix(20))
+
+                    // Convierte los datos a instancias de Sensor
+                    let sensoresST = ultimosDatosST.compactMap { Sensor(data: $0) }
+
+                    self.sensorTemperatura = sensoresST
 
                     DispatchQueue.main.async {
                         self.limpiarInterfaz()
@@ -90,9 +90,6 @@ class SensoresViewController: UIViewController {
     }
 
 
-
-    
-
     func limpiarInterfaz() {
         print("Limpiando la interfaz...")
         // Remover todas las subvistas de srcSensores para limpiar la interfaz
@@ -101,7 +98,6 @@ class SensoresViewController: UIViewController {
         }
     }
 
-    
     func dibujarSensores() {
         print("Dibujando sensores...")
         // Define the desired order
@@ -186,23 +182,8 @@ class SensoresViewController: UIViewController {
         srcSensores.contentSize = CGSize(width: 0, height: y)
     }
 
-        
-
-    
     @objc func mostrarDetalle(sender: UIButton) {
-        let selectedSensor = sensorTemperatura[sender.tag]
-        self.performSegue(withIdentifier: "sgSensoresAll", sender: selectedSensor)
+        // Implementa la lógica para mostrar los detalles del sensor
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "sgSensoresAll" {
-            if let destinationVC = segue.destination as? SensoresAllViewController, let selectedSensor = sender as? Sensor {
-                destinationVC.selectedSensor = selectedSensor
-            }
-        }
-    }
-
 }
-
-
 
