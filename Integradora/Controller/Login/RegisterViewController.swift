@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtContrasena: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
@@ -15,7 +15,9 @@ class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        txtNombre.delegate = self
+            txtEmail.delegate = self
+            txtContrasena.delegate = self
     }
     
     @IBAction func btnAtras(_ sender: Any) {
@@ -62,9 +64,17 @@ class RegisterViewController: UIViewController {
                         case 201:
                             if let msg = jsonResponse?["msg"] as? String {
                                 self.mostrarAlerta(mensaje: msg)
+                                // Registro exitoso, regresar a la vista anterior
+                                DispatchQueue.main.async {
+                                    if let _ = self.storyboard?.instantiateViewController(withIdentifier: "SensoresViewController") {
+                                        self.performSegue(withIdentifier: "sgSensoresReg", sender: nil)
+                                    }
+                                }
                             } else {
                                 self.mostrarAlerta(mensaje: "Error en la respuesta del servidor.")
                             }
+
+
                         case 422:
                             if let errorMsg = jsonResponse?["data"] as? [String: Any] {
                                 var errorMessage = ""
@@ -92,6 +102,27 @@ class RegisterViewController: UIViewController {
             self.mostrarAlerta(mensaje: "Error al convertir datos a JSON: \(error.localizedDescription)")
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case txtNombre:
+            // Cuando se presiona "Return" en el campo de nombre, pasa al campo de correo electrónico
+            txtEmail.becomeFirstResponder()
+        case txtEmail:
+            // Cuando se presiona "Return" en el campo de correo electrónico, pasa al campo de contraseña
+            txtContrasena.becomeFirstResponder()
+        case txtContrasena:
+            // Cuando se presiona "Return" en el campo de contraseña, oculta el teclado
+            textField.resignFirstResponder()
+            // También puedes agregar aquí la lógica para realizar la acción de registro si es necesario
+            // Llama a tu función btnRegistro(sender) o realiza la lógica que necesites aquí.
+        default:
+            break
+        }
+        
+        return true
+    }
+
 
     // Función para mostrar una alerta en la vista
     func mostrarAlerta(mensaje: String) {

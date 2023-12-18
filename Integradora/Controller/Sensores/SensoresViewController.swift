@@ -9,6 +9,7 @@ import UIKit
 
 class SensoresViewController: UIViewController {
 
+    @IBOutlet weak var lblNombre: UILabel!
     @IBOutlet weak var srcSensores: UIScrollView!
     
     var sensorTemperatura:[Sensor] = []
@@ -23,6 +24,13 @@ class SensoresViewController: UIViewController {
                 Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(consultarServicio), userInfo: nil, repeats: true)
     }
 
+    @IBAction func btnSalir(_ sender: Any) {
+        // Regresa a la pantalla principal
+        performSegue(withIdentifier: "sgSalir", sender: nil)
+        
+    }
+    
+    
     @objc func consultarServicio() {
         print("Realizando solicitud al servidor...")
 

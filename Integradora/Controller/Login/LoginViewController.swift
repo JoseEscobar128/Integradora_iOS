@@ -6,14 +6,16 @@
 //
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtContrasena: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Establece el delegado para los campos de texto
+               txtContrasena.delegate = self
+               txtEmail.delegate = self
     }
 
     @IBAction func btnAtras(_ sender: Any) {
@@ -24,6 +26,9 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func btnIngresar(_ sender: Any) {
+        // Cuando se presiona el botón, el teclado debe ocultarse
+                txtContrasena.resignFirstResponder()
+                txtEmail.resignFirstResponder()
         guard let url = URL(string: "http://3.129.244.114/api/login") else {
             return
         }
@@ -53,6 +58,12 @@ class LoginViewController: UIViewController {
                         case 200:
                             if let msg = jsonResponse?["msg"] as? String, msg.lowercased().contains("sesion iniciada") {
                                 self.mostrarAlerta(mensaje: msg)
+                                // Navegar a SensoresViewController
+                                DispatchQueue.main.async {
+                                    if let _ = self.storyboard?.instantiateViewController(withIdentifier: "SensoresViewController") {
+                                            self.performSegue(withIdentifier: "sgSensores", sender: nil)
+                                    }
+                                }
                             } else {
                                 self.mostrarAlerta(mensaje: "Error en la respuesta del servidor (200).")
                             }
@@ -99,6 +110,17 @@ class LoginViewController: UIViewController {
             self.mostrarAlerta(mensaje: "Error al convertir datos a JSON: \(error.localizedDescription)")
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            // Mover al siguiente campo de texto u ocultar el teclado según el campo de texto actual
+            if textField == txtEmail {
+                txtContrasena.becomeFirstResponder()  // Mover al siguiente campo de texto
+            } else if textField == txtContrasena {
+                textField.resignFirstResponder()  // Ocultar el teclado
+            }
+
+            return true
+        }
 
     // Función para mostrar una alerta en la vista
     func mostrarAlerta(mensaje: String) {
