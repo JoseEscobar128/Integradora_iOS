@@ -8,26 +8,22 @@
 import UIKit
 
 class MenuViewController: UIViewController {
-
+    @IBOutlet weak var btnRegistrar: UIButton!
+    @IBOutlet weak var btnCreditos: UIButton!
+    
+    @IBOutlet weak var btnIngresar: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
+    
+    @IBAction func btnCreditos(_ sender: Any) {
+    }
     @IBAction func btnRegistrar(_ sender: Any) {
     }
     
     @IBAction func btnIngresar(_ sender: Any) {
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
 
 }
