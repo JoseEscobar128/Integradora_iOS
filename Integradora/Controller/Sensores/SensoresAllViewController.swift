@@ -118,30 +118,26 @@ class SensoresAllViewController: UIViewController {
 
         // Crea y agrega las vistas para el último sensor de cada tipo
         for sensor in sensoresOrdenados {
-            let vista = UIView(frame: CGRect(x: 10, y: y, width: Int(srcSensores.frame.width) - 20, height: 170)) // Ajusta la altura para acomodar la fecha
-            vista.backgroundColor = UIColor(
-                red: CGFloat(0xFC) / 255.0,
-                green: CGFloat(0xF5) / 255.0,
-                blue: CGFloat(0xC7) / 255.0,
-                alpha: 1.0
-            )
+            let vista = UIView(frame: CGRect(x: 10, y: y, width: Int(srcSensores.frame.width) - 20, height: 150)) // Ajusta la altura para acomodar la fecha
+            vista.backgroundColor = UIColor(red: 255/255.0, green: 245/255.0, blue: 238/255.0, alpha: 1.0)
             vista.layer.cornerRadius = 10
             vista.layer.masksToBounds = true
 
-            // Imagen del sensor en el lado izquierdo
-            let imagen = UIImageView(frame: CGRect(x: 5, y: 5, width: 90, height: 90))
-            imagen.image = UIImage(named: "loading.png")
+            // Imagen del sensor a la izquierda
+            let imagen = UIImageView(frame: CGRect(x: 20, y: 30, width: 90, height: 90))
+            imagen.image = obtenerImagenParaTipo(sensor.tipo)
             vista.addSubview(imagen)
 
-            // Nombre del sensor
-            let nombreLabel = UILabel(frame: CGRect(x: 100, y: 5, width: Int(vista.frame.width) - 105, height: 25))
-            nombreLabel.text = sensor.nSensor
-            nombreLabel.font = .boldSystemFont(ofSize: 20)
-            nombreLabel.textColor = .black
-            vista.addSubview(nombreLabel)
+            // Tipo del sensor centrado en la parte superior
+            let tipoLabel = UILabel(frame: CGRect(x: 30, y: 5, width: Int(vista.frame.width), height: 25))
+            tipoLabel.text = obtenerTextoParaTipo(sensor.tipo)
+            tipoLabel.font = .boldSystemFont(ofSize: 20)
+            tipoLabel.textAlignment = .center
+            tipoLabel.textColor = .black
+            vista.addSubview(tipoLabel)
 
-            // Valor del sensor
-            let dato = UILabel(frame: CGRect(x: 100, y: 35, width: Int(vista.frame.width) - 105, height: 60))
+            // Valor del sensor en el centro
+            let dato = UILabel(frame: CGRect(x: 30, y: 45, width: Int(vista.frame.width), height: 60))
             dato.text = sensor.valor
             dato.font = .boldSystemFont(ofSize: 50)
             dato.textAlignment = .center
@@ -149,15 +145,15 @@ class SensoresAllViewController: UIViewController {
             dato.minimumScaleFactor = 0.5
             vista.addSubview(dato)
 
-            // Unidades del sensor
+            // Unidades del sensor a la derecha
             let unidades = UILabel(frame: CGRect(x: Int(vista.frame.width) - 100, y: 100, width: 90, height: 25))
-            unidades.text = sensor.tipo
+            unidades.text = obtenerUnidadesParaTipo(sensor.tipo)
             unidades.font = .systemFont(ofSize: 15)
             unidades.textAlignment = .right
             vista.addSubview(unidades)
 
-            // Fecha y hora del sensor
-            let fechaHoraLabel = UILabel(frame: CGRect(x: 100, y: 130, width: Int(vista.frame.width) - 105, height: 25))
+            // Fecha y hora del sensor en la parte inferior
+            let fechaHoraLabel = UILabel(frame: CGRect(x: 0, y: 120, width: Int(vista.frame.width), height: 25))
             if let fechaSensor = sensor.fecha {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -165,14 +161,19 @@ class SensoresAllViewController: UIViewController {
             } else {
                 fechaHoraLabel.text = "Fecha desconocida"
             }
-            fechaHoraLabel.font = .systemFont(ofSize: 12)
-            fechaHoraLabel.textColor = .gray
-            fechaHoraLabel.textAlignment = .right
+            fechaHoraLabel.font = .systemFont(ofSize: 16)
+            fechaHoraLabel.textColor = .systemRed
+            fechaHoraLabel.textAlignment = .center
             vista.addSubview(fechaHoraLabel)
 
             let boton = UIButton(frame: CGRect(x: 0, y: 0, width: vista.frame.width, height: vista.frame.height))
             boton.tag = sensorTemperatura.firstIndex(of: sensor) ?? 0
             boton.addTarget(self, action: #selector(mostrarDetalle(sender:)), for: .touchDown)
+
+            // Configurar el color del borde
+            boton.layer.borderWidth = 1.0
+            boton.layer.borderColor = UIColor.systemBlue.cgColor
+
             vista.addSubview(boton)
 
             srcSensores.addSubview(vista)
@@ -180,6 +181,60 @@ class SensoresAllViewController: UIViewController {
         }
 
         srcSensores.contentSize = CGSize(width: 0, height: y)
+    }
+
+    // Funciones auxiliares para obtener el texto, las unidades y la imagen según el tipo de sensor
+    func obtenerTextoParaTipo(_ tipo: String) -> String {
+        switch tipo {
+        case "DIS":
+            return "Sensor Distancia"
+        case "ST":
+            return "Sensor Temperatura"
+        case "SH":
+            return "Sensor Humedad"
+        case "SM":
+            return "Sensor Movimiento"
+        case "SS":
+            return "Sensor Sonido"
+        default:
+            return "Tipo Desconocido"
+        }
+    }
+
+    func obtenerUnidadesParaTipo(_ tipo: String) -> String {
+        // Puedes ajustar las unidades según tus necesidades
+        switch tipo {
+        case "DIS":
+            return "cm"
+        case "ST":
+            return "°C"
+        case "SH":
+            return "%"
+        case "SM":
+            return "M"
+        case "SS":
+            return "D"
+        default:
+            return "Unidades Desconocidas"
+        }
+    }
+
+    func obtenerImagenParaTipo(_ tipo: String) -> UIImage {
+        // Puedes ajustar las imágenes según tus necesidades
+        switch tipo {
+        case "DIS":
+            return UIImage(named: "distancia.png") ?? UIImage()
+        case "ST":
+            return UIImage(named: "temperatura.png") ?? UIImage()
+        case "SH":
+            return UIImage(named: "humedad.png") ?? UIImage()
+        case "SM":
+            return UIImage(named: "movimiento.png") ?? UIImage()
+        case "SS":
+            return UIImage(named: "sonido.png") ?? UIImage()
+        default:
+            return UIImage()
+        }
     }
 
     @objc func mostrarDetalle(sender: UIButton) {

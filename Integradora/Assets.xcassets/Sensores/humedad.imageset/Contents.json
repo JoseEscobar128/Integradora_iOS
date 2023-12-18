@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "loading.png",
+      "filename" : "humedad.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "loading@2x.png",
+      "filename" : "humedad@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "loading@3x.png",
+      "filename" : "humedad@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

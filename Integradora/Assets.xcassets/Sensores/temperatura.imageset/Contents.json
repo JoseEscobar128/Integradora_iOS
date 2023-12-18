@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Login.png",
+      "filename" : "temperatura.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Login@2x.png",
+      "filename" : "temperatura@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Login@3x.png",
+      "filename" : "temperatura@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

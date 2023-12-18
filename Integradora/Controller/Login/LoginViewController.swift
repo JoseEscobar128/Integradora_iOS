@@ -26,6 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func btnIngresar(_ sender: Any) {
+        print("Botón Ingresar presionado")
         // Cuando se presiona el botón, el teclado debe ocultarse
                 txtContrasena.resignFirstResponder()
                 txtEmail.resignFirstResponder()
