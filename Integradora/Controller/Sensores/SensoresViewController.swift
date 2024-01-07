@@ -34,7 +34,7 @@ class SensoresViewController: UIViewController {
     @objc func consultarServicio() {
         print("Realizando solicitud al servidor...")
 
-        let url = URL(string: "http://3.129.244.114/api/datos")!
+        let url = URL(string: "http://18.117.124.234/api/actual")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -65,13 +65,13 @@ class SensoresViewController: UIViewController {
 
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+                print("JSON de la respuesta:", json)
 
-                if let dataDict = json["data"] as? [String: Any], let dataArray = dataDict["data"] as? [[String: Any]], let primerSensorData = dataArray.first, let datos = primerSensorData["data"] as? [[String: Any]] {
-                    
+                if let responseData = json["data"] as? [String: Any], let dataArray = responseData["data"] as? [[String: Any]] {
                     var ultimoSensorPorTipo: [String: Sensor] = [:]
 
-                    for data in datos {
-                        if let sensor = Sensor(data: data), let fechaSensor = sensor.fecha {
+                    for data in dataArray {
+                        if let sensorData = data["data"] as? [String: Any], let sensor = Sensor(data: sensorData), let fechaSensor = sensor.fecha {
                             if let ultimoSensor = ultimoSensorPorTipo[sensor.tipo] {
                                 if let fechaUltimoSensor = ultimoSensor.fecha, fechaSensor > fechaUltimoSensor {
                                     ultimoSensorPorTipo[sensor.tipo] = sensor
@@ -94,6 +94,7 @@ class SensoresViewController: UIViewController {
             } catch {
                 print("Algo salió mal =(")
             }
+
         }.resume()
     }
 
