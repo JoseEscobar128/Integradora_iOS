@@ -254,7 +254,10 @@ class SensoresViewController: UIViewController {
 
     
     @objc func mostrarDetalle(sender: UIButton) {
+        
+           
         let selectedSensor = sensorTemperatura[sender.tag]
+        print("Tag del botón presionado:", selectedSensor)
         self.performSegue(withIdentifier: "sgSensoresAll", sender: selectedSensor)
     }
 

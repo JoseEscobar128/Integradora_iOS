@@ -3,22 +3,35 @@ import UIKit
 class SensoresAllViewController: UIViewController {
 
     @IBOutlet weak var srcSensores: UIScrollView!
-     
+
     var sensorTemperatura: [Sensor] = []
     var selectedSensor: Sensor?
     
+    let tipoNumeroMapping: [String: Int] = ["ST": 0, "SH": 1, "SS": 2, "SM": 3, "DIS": 4]
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         consultarServicio()
-        // Configura un temporizador que llamará a la función consultarServicio cada 30 segundos
+
         Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(consultarServicio), userInfo: nil, repeats: true)
     }
 
     @objc func consultarServicio() {
         print("Realizando solicitud al servidor...")
 
-        let url = URL(string: "http://3.129.244.114/api/datos")!
+        guard let selectedSensor = selectedSensor else {
+            print("No hay sensor seleccionado.")
+            return
+        }
+
+        guard let numeroSensor = tipoNumeroMapping[selectedSensor.tipo] else {
+            print("Tipo de sensor no válido: \(selectedSensor.tipo)")
+            return
+        }
+
+        let urlString = "http://18.117.124.234/api/historico/\(numeroSensor)"
+        let url = URL(string: urlString)!
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -33,17 +46,19 @@ class SensoresAllViewController: UIViewController {
         }
 
         URLSession.shared.dataTask(with: request) { data, response, error in
-            // Mover la verificación de 'response' al principio
             guard let httpResponse = response as? HTTPURLResponse, let data = data, error == nil else {
                 print("Error al obtener datos del servidor.")
                 return
             }
 
             if (200...299).contains(httpResponse.statusCode) {
-                // Respuesta exitosa (código de estado 2xx)
                 print("Respuesta del servidor fue exitosa (Código \(httpResponse.statusCode)).")
+
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    print("JSON de la respuesta: \(jsonString)")
+                }
+
             } else {
-                // Respuesta con error
                 print("Error en la respuesta del servidor (Código \(httpResponse.statusCode)).")
             }
 
@@ -52,15 +67,13 @@ class SensoresAllViewController: UIViewController {
 
                 if let dataDict = json["data"] as? [String: Any], let dataArray = dataDict["data"] as? [[String: Any]], let primerSensorData = dataArray.first, let datos = primerSensorData["data"] as? [[String: Any]] {
 
-                    // Filtra los datos solo para el sensor seleccionado
-                       let datosSensorSeleccionado = datos.filter { data in
-                           guard let tipo = data["tipo"] as? String else {
-                               return false
-                           }
-                           return tipo == self.selectedSensor?.tipo
-                       }
+                    let datosSensorSeleccionado = datos.filter { data in
+                        guard let tipo = data["tipo"] as? String else {
+                            return false
+                        }
+                        return tipo == selectedSensor.tipo
+                    }
 
-                    // Ordena los datos por fecha descendente
                     let datosSensorSTOrdenados = datosSensorSeleccionado.sorted { data1, data2 in
                         guard let fecha1 = data1["fecha"] as? String, let fecha2 = data2["fecha"] as? String else {
                             return false
@@ -68,10 +81,7 @@ class SensoresAllViewController: UIViewController {
                         return fecha1 > fecha2
                     }
 
-                    // Obtiene los últimos 20 datos del sensor "ST"
                     let ultimosDatosST = Array(datosSensorSTOrdenados.prefix(20))
-
-                    // Convierte los datos a instancias de Sensor
                     let sensoresST = ultimosDatosST.compactMap { Sensor(data: $0) }
 
                     self.sensorTemperatura = sensoresST
@@ -89,10 +99,8 @@ class SensoresAllViewController: UIViewController {
         }.resume()
     }
 
-
     func limpiarInterfaz() {
         print("Limpiando la interfaz...")
-        // Remover todas las subvistas de srcSensores para limpiar la interfaz
         for subview in self.srcSensores.subviews {
             subview.removeFromSuperview()
         }
@@ -100,10 +108,11 @@ class SensoresAllViewController: UIViewController {
 
     func dibujarSensores() {
         print("Dibujando sensores...")
-        // Define the desired order
+
+        limpiarInterfaz()
+
         let order = ["DIS", "ST", "SH", "SM", "SS"]
 
-        // Filter and sort the sensors based on the desired order
         let sensoresOrdenados = sensorTemperatura.filter { order.contains($0.tipo) }.sorted { sensor1, sensor2 in
             guard let index1 = order.firstIndex(of: sensor1.tipo), let index2 = order.firstIndex(of: sensor2.tipo) else {
                 return false
@@ -111,24 +120,18 @@ class SensoresAllViewController: UIViewController {
             return index1 < index2
         }
 
-        // Limpia la interfaz antes de agregar las nuevas vistas
-        limpiarInterfaz()
-
         var y = 10
 
-        // Crea y agrega las vistas para el último sensor de cada tipo
         for sensor in sensoresOrdenados {
-            let vista = UIView(frame: CGRect(x: 10, y: y, width: Int(srcSensores.frame.width) - 20, height: 150)) // Ajusta la altura para acomodar la fecha
-            vista.backgroundColor = UIColor(red: 255/255.0, green: 245/255.0, blue: 238/255.0, alpha: 1.0)
+            let vista = UIView(frame: CGRect(x: 10, y: y, width: Int(srcSensores.frame.width) - 20, height: 150))
+            vista.backgroundColor = UIColor(red: 135/255.0, green: 206/255.0, blue: 250/255.0, alpha: 1.0)
             vista.layer.cornerRadius = 10
             vista.layer.masksToBounds = true
 
-            // Imagen del sensor a la izquierda
             let imagen = UIImageView(frame: CGRect(x: 20, y: 30, width: 90, height: 90))
             imagen.image = obtenerImagenParaTipo(sensor.tipo)
             vista.addSubview(imagen)
 
-            // Tipo del sensor centrado en la parte superior
             let tipoLabel = UILabel(frame: CGRect(x: 30, y: 5, width: Int(vista.frame.width), height: 25))
             tipoLabel.text = obtenerTextoParaTipo(sensor.tipo)
             tipoLabel.font = .boldSystemFont(ofSize: 20)
@@ -136,7 +139,6 @@ class SensoresAllViewController: UIViewController {
             tipoLabel.textColor = .black
             vista.addSubview(tipoLabel)
 
-            // Valor del sensor en el centro
             let dato = UILabel(frame: CGRect(x: 30, y: 45, width: Int(vista.frame.width), height: 60))
             dato.text = sensor.valor
             dato.font = .boldSystemFont(ofSize: 50)
@@ -145,15 +147,13 @@ class SensoresAllViewController: UIViewController {
             dato.minimumScaleFactor = 0.5
             vista.addSubview(dato)
 
-            // Unidades del sensor a la derecha
             let unidades = UILabel(frame: CGRect(x: Int(vista.frame.width) - 100, y: 100, width: 90, height: 25))
             unidades.text = obtenerUnidadesParaTipo(sensor.tipo)
             unidades.font = .systemFont(ofSize: 15)
             unidades.textAlignment = .right
             vista.addSubview(unidades)
 
-            // Fecha y hora del sensor en la parte inferior
-            let fechaHoraLabel = UILabel(frame: CGRect(x: 0, y: 120, width: Int(vista.frame.width), height: 25))
+            let fechaHoraLabel = UILabel(frame: CGRect(x: 0, y: 130, width: Int(vista.frame.width), height: 25))
             if let fechaSensor = sensor.fecha {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -161,8 +161,8 @@ class SensoresAllViewController: UIViewController {
             } else {
                 fechaHoraLabel.text = "Fecha desconocida"
             }
-            fechaHoraLabel.font = .systemFont(ofSize: 16)
-            fechaHoraLabel.textColor = .systemRed
+            fechaHoraLabel.font = .systemFont(ofSize: 12)
+            fechaHoraLabel.textColor = .gray
             fechaHoraLabel.textAlignment = .center
             vista.addSubview(fechaHoraLabel)
 
@@ -170,20 +170,18 @@ class SensoresAllViewController: UIViewController {
             boton.tag = sensorTemperatura.firstIndex(of: sensor) ?? 0
             boton.addTarget(self, action: #selector(mostrarDetalle(sender:)), for: .touchDown)
 
-            // Configurar el color del borde
             boton.layer.borderWidth = 1.0
             boton.layer.borderColor = UIColor.systemBlue.cgColor
 
             vista.addSubview(boton)
 
             srcSensores.addSubview(vista)
-            y += 170 // Ajusta la altura total de la vista
+            y += 170
         }
 
         srcSensores.contentSize = CGSize(width: 0, height: y)
     }
 
-    // Funciones auxiliares para obtener el texto, las unidades y la imagen según el tipo de sensor
     func obtenerTextoParaTipo(_ tipo: String) -> String {
         switch tipo {
         case "DIS":
@@ -202,7 +200,6 @@ class SensoresAllViewController: UIViewController {
     }
 
     func obtenerUnidadesParaTipo(_ tipo: String) -> String {
-        // Puedes ajustar las unidades según tus necesidades
         switch tipo {
         case "DIS":
             return "cm"
@@ -220,7 +217,6 @@ class SensoresAllViewController: UIViewController {
     }
 
     func obtenerImagenParaTipo(_ tipo: String) -> UIImage {
-        // Puedes ajustar las imágenes según tus necesidades
         switch tipo {
         case "DIS":
             return UIImage(named: "distancia.png") ?? UIImage()
@@ -238,7 +234,17 @@ class SensoresAllViewController: UIViewController {
     }
 
     @objc func mostrarDetalle(sender: UIButton) {
-        // Implementa la lógica para mostrar los detalles del sensor
+        let selectedSensor = sensorTemperatura[sender.tag]
+        print("Tag del botón presionado:", selectedSensor)
+        self.performSegue(withIdentifier: "sgSensoresAll", sender: selectedSensor)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sgSensoresAll" {
+            if let destinationVC = segue.destination as? SensoresAllViewController, let selectedSensor = sender as? Sensor {
+                destinationVC.selectedSensor = selectedSensor
+            }
+        }
     }
 }
 
