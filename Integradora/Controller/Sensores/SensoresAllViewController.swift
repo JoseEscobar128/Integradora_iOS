@@ -13,7 +13,7 @@ class SensoresAllViewController: UIViewController {
         super.viewDidLoad()
         consultarServicio()
 
-        Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(consultarServicio), userInfo: nil, repeats: true)
+        
     }
 
     @objc func consultarServicio() {
@@ -168,7 +168,7 @@ class SensoresAllViewController: UIViewController {
 
             let boton = UIButton(frame: CGRect(x: 0, y: 0, width: vista.frame.width, height: vista.frame.height))
             boton.tag = sensorTemperatura.firstIndex(of: sensor) ?? 0
-            boton.addTarget(self, action: #selector(mostrarDetalle(sender:)), for: .touchDown)
+            
 
             boton.layer.borderWidth = 1.0
             boton.layer.borderColor = UIColor.systemBlue.cgColor

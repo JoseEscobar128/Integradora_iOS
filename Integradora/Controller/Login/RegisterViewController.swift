@@ -28,7 +28,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
 
     @IBAction func btnRegistro(_ sender: Any) {
-        guard let url = URL(string: "http://3.129.244.114/api/register") else {
+        guard let url = URL(string: "http://18.117.124.234/api/register") else {
             return
         }
 
@@ -62,17 +62,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                                 self.mostrarAlerta(mensaje: "Error en la respuesta del servidor (200).")
                             }
                         case 201:
-                            if let msg = jsonResponse?["msg"] as? String {
-                                self.mostrarAlerta(mensaje: msg)
+                            
                                 // Registro exitoso, regresar a la vista anterior
                                 DispatchQueue.main.async {
                                     if let _ = self.storyboard?.instantiateViewController(withIdentifier: "SensoresViewController") {
-                                        self.performSegue(withIdentifier: "sgSensoresReg", sender: nil)
+                                        self.performSegue(withIdentifier: "sgSensores", sender: nil)
                                     }
                                 }
-                            } else {
-                                self.mostrarAlerta(mensaje: "Error en la respuesta del servidor.")
-                            }
 
 
                         case 422:

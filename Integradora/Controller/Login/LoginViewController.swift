@@ -30,7 +30,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Cuando se presiona el botón, el teclado debe ocultarse
                 txtContrasena.resignFirstResponder()
                 txtEmail.resignFirstResponder()
-        guard let url = URL(string: "http://3.129.244.114/api/login") else {
+        guard let url = URL(string: "http://18.117.124.234/api/login") else {
             return
         }
 
@@ -57,16 +57,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
                         switch httpResponse.statusCode {
                         case 200:
-                            if let msg = jsonResponse?["msg"] as? String, msg.lowercased().contains("sesion iniciada") {
-                                self.mostrarAlerta(mensaje: msg)
+                            
+                                
                                 // Navegar a SensoresViewController
                                 DispatchQueue.main.async {
                                     if let _ = self.storyboard?.instantiateViewController(withIdentifier: "SensoresViewController") {
                                             self.performSegue(withIdentifier: "sgSensores", sender: nil)
-                                    }
+                                    
                                 }
-                            } else {
-                                self.mostrarAlerta(mensaje: "Error en la respuesta del servidor (200).")
                             }
                         case 401:
                             if let msg = jsonResponse?["msg"] as? String, msg.lowercased().contains("no existe") {

@@ -25,8 +25,7 @@ class SensoresViewController: UIViewController {
     }
 
     @IBAction func btnSalir(_ sender: Any) {
-        // Regresa a la pantalla principal
-        performSegue(withIdentifier: "sgSalir", sender: nil)
+        exit(0)
         
     }
     

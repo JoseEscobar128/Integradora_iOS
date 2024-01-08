@@ -18,11 +18,14 @@ class MenuViewController: UIViewController {
     
     
     @IBAction func btnCreditos(_ sender: Any) {
+        self.performSegue(withIdentifier: "sgCreditos", sender: nil)
     }
     @IBAction func btnRegistrar(_ sender: Any) {
+        self.performSegue(withIdentifier: "sgRegistrar", sender: nil)
     }
     
     @IBAction func btnIngresar(_ sender: Any) {
+        self.performSegue(withIdentifier: "sgIngresar", sender: nil)
     }
   
 
